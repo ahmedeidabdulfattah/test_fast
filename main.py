@@ -1,19 +1,13 @@
-# main.py
-from fastapi import FastAPI
+# app.py
+from flask import Flask
 
-app = FastAPI()
+app = Flask(__name__)
 
-@app.get("/")
-def read_root():
-    return {"message": "Hello, FastAPI!"}
-
-@app.get("/items/{item_id}")
-def read_item(item_id: int, q: str = None):
-    return {"item_id": item_id, "q": q}
-
+@app.route('/')
+def home():
+    return "Hello, Flask with Uvicorn!"
 import os
-
-if __name__ == "__main__":
-    import uvicorn
-    port = int(os.getenv("PORT", 8000))
-    uvicorn.run("main:app", host="0.0.0.0", port=port, reload=True)
+if __name__ == '__main__':
+     import uvicorn
+     port = int(os.getenv("PORT", 8000))
+     uvicorn.run("app:app", host="0.0.0.0", port=port, reload=True)
